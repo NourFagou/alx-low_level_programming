@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "lists.h"
 
 /**
@@ -9,26 +10,29 @@
  */
 listint_t *add_nodeint_end(listint_t **head, const int n)
 {
-	listint_t *new;
-	listint_t *temp = *head;
+listint_t *ptr, *New_End_Node; /*declare 2 pointer to the list*/
 
-	new = malloc(sizeof(listint_t));
-	if (!new)
-		return (NULL);
+New_End_Node = malloc(sizeof(listint_t));/*new memo pos for the new node*/
+if (New_End_Node == NULL)/*check if the allocation field*/
+{
+return (NULL);
+}
 
-	new->n = n;
-	new->next = NULL;
+New_End_Node->n = n;/*update the val of newNode by he data*/
+New_End_Node->next = NULL;/*update the add by NULL*/
 
-	if (*head == NULL)
-	{
-		*head = new;
-		return (new);
-	}
-
-	while (temp->next)
-		temp = temp->next;
-
-	temp->next = new;
-
-	return (new);
+if (*head == NULL)/*if it is the last elem in the list*/
+{
+*head = New_End_Node;/*add the new node*/
+}
+else
+{
+ptr = *head;/*assign poiner to the head*/
+while (ptr->next != NULL) /*traverse to the end of the list*/
+{
+ptr = ptr->next; /*moving for the next node*/
+}
+ptr->next = New_End_Node; /*add the new node at the end of the list*/
+}
+return (New_End_Node);
 }
